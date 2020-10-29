@@ -85,3 +85,12 @@ class BaseUserAdmin(UserAdmin):
             'fields': ('email', 'password1', 'password2'),
         }),
     )
+
+admin.site.register(Account,BaseUserAdmin)
+admin.site.register(Customer)
+admin.site.register(Owner)
+admin.site.register(Restaurant)
+admin.site.register(Item)
+admin.site.register(Menu)
+admin.site.register(Order)
+admin.site.register(orderItem)
