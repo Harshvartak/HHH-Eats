@@ -7,34 +7,23 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 '''AUTH START'''
 
 class AccountManager(BaseUserManager):
-    def create_user(self,username,password=None,**extra_fields):
-        if not username:
-            raise ValueError("Username is required")
+    def create_user(self, email, password=None, **extra_fields):
+        if not email:
+            raise ValueError("Users must have an email address")
+        if not password:
+            raise ValueError("Users must have a password")
 
-
-        user=self.model(
-            username=username,
-
-            **extra_fields
-        )
+        user = self.model(email=self.normalize_email(email), **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self,username, password, **extra_fields):
-        # Creating superuser having all the rights
-        user=self.create_user(
-
-                    username,
-                     password,
-                      **extra_fields)
-
-        user.is_admin=True
-        user.is_staff=True
-        user.is_superuser=True
+    def create_superuser(self, email, password):
+        user = self.create_user(email=self.normalize_email(email), password=password,)
+        user.is_admin = True
+        user.is_staff = True
+        user.is_superuser = True
         user.save(using=self._db)
-
-
         return user
 
 class Account(AbstractBaseUser,PermissionsMixin):
@@ -143,8 +132,8 @@ class Order(models.Model):
 	total_amount= models.IntegerField(default=0)
 	timestamp= models.DateTimeField(auto_now_add=True)
 	delivery_addr= models.CharField(max_length=50,blank=True)
-	orderedBy= models.ForeignKey(User ,on_delete=models.CASCADE)
-	r_id= models.ForeignKey(Restaurant ,on_delete=models.CASCADE)
+	orderedBy= models.ForeignKey(Customer,on_delete=models.CASCADE)
+	r_id= models.ForeignKey(Restaurant,on_delete=models.CASCADE)
 
 	ORDER_STATE_WAITING= "Waiting"
 	ORDER_STATE_PLACED= "Placed"
