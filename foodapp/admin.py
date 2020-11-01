@@ -5,8 +5,7 @@ from .models import *
 from .forms import *
 from django.utils.translation import ugettext_lazy as _
 from django import forms
-from django.contrib.auth.forms import ReadOnlyPasswordHashField
-from django.core.exceptions import ValidationError
+
 
 # Register your models here.
 class BaseUserAdmin(UserAdmin):
