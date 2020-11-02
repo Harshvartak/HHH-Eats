@@ -41,8 +41,8 @@ class Account(AbstractBaseUser, PermissionsMixin):
     m_name = models.CharField(max_length=40, null=True, blank=True)
     l_name = models.CharField(max_length=20, blank=True, null=True)
 
-    address_line_1 = models.TextField(blank=True)
-    address_line_2 = models.TextField(blank=True)
+    address_line_1 = models.CharField(blank=True,max_length=200)
+    address_line_2 = models.CharField(blank=True,max_length=200)
     City = models.CharField(max_length=200)
     pin_code_regex = RegexValidator(
         regex="^[1-9]{1}[0-9]{2}\\s{0,1}[0-9]{3}$", message="Enter a valid pin code"

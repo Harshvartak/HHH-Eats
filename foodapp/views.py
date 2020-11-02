@@ -6,11 +6,26 @@ from collections import Counter
 from django.urls import reverse
 from django.db.models import Q
 from .models import *
+from django.http import HttpResponse
 
 
 """
 Authentication Starts
 """
+def register(request):
+
+    form=UserCreationForm(request.POST)
+    print(form.is_valid(),request.method)
+    if request.method=="POST" :
+
+        if form.is_valid():
+            print(form.data)
+            form.save()
+            return HttpResponse("Kya haal")
+        else:
+            print(form.errors)
+
+    return render(request,"signup.html",{'form':form})
 
 
 def Logout(request):

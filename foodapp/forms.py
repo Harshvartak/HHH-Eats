@@ -31,7 +31,38 @@ class UserCreationForm(forms.ModelForm):
 
     class Meta:
         model = Account
-        fields = ("email",)
+        fields = ("email","f_name","m_name","l_name","address_line_1","address_line_2","pin_code")
+
+    def __init__(self, *args, **kwargs):
+        super(UserCreationForm, self).__init__(*args, **kwargs)
+        self.fields["f_name"].widget.attrs["class"] = "form-control"
+        self.fields["f_name"].widget.attrs["id"] = "fname"
+        self.fields["f_name"].widget.attrs["placeholder"] = "Enter your firstname"
+        self.fields["m_name"].widget.attrs["class"] = "form-control"
+        self.fields["m_name"].widget.attrs["id"] = "mname"
+        self.fields["m_name"].widget.attrs["placeholder"] = "Enter your middlename"
+        self.fields["l_name"].widget.attrs["class"] = "form-control"
+        self.fields["l_name"].widget.attrs["id"] = "lname"
+        self.fields["l_name"].widget.attrs["placeholder"] = "Enter your lastname"
+        self.fields["email"].widget.attrs["class"] = "form-control"
+        self.fields["email"].widget.attrs["id"] = "email"
+        self.fields["email"].widget.attrs["placeholder"] = "Enter your email"
+        self.fields["password1"].widget.attrs["class"] = "form-control"
+        self.fields["password1"].widget.attrs["id"] = "fname"
+        self.fields["password1"].widget.attrs["placeholder"] = "Enter your password"
+        self.fields["password2"].widget.attrs["class"] = "form-control"
+        self.fields["password2"].widget.attrs["id"] = "fname"
+        self.fields["password2"].widget.attrs["placeholder"] = "Confirm your password"
+        self.fields["address_line_1"].widget.attrs["class"] = "form-control"
+        self.fields["address_line_1"].widget.attrs["id"] = "address1"
+        self.fields["address_line_1"].widget.attrs["placeholder"] = "Address line 1"
+        self.fields["address_line_2"].widget.attrs["class"] = "form-control"
+        self.fields["address_line_2"].widget.attrs["id"] = "address2"
+        self.fields["address_line_2"].widget.attrs["placeholder"] = "Address line 2"
+        self.fields["pin_code"].widget.attrs["class"] = "form-control"
+        self.fields["pin_code"].widget.attrs["id"] = "address1"
+        self.fields["pin_code"].widget.attrs["placeholder"] = "Enter your pincode"
+        
 
     def clean_password2(self):
         # Check that the two password entries match
