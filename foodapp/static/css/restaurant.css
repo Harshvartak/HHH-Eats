@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
+
+body {
+  background-image: url(../images/slider-image2.jpg);
+  font-family: 'Montserrat', sans-serif;
+  overflow-x: hidden;
+}
+
+.navbar-brand {
+  color: red;
+  font-size: 24px;
+  font-weight: bold;
+  margin-left: 100px;
+  margin-top: 30px;
+  padding-right: 100%;
+  padding-bottom: 100px;
+}
+
+a:hover,
+a:active,
+a:focus {
+  color: #ce3232;
+  outline: none;
+}
+
+#filters {
+  height: 100vh;
+  opacity: 95%;
+}
+
+#restaurants {
+  height: 100vh;
+  background-color: #f8f8f8;
+}
+
+#restaurants .card-title {
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+#ind_res .card-header {
+  font-weight: bold;
+  font-size: 14px;
+  background-color: white;
+}
+
+#ind_res .card-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #ce3232;
+  padding: 0;
+  margin: 0;
+  line-height: 20px;
+}
+
+#ind_res .card-body {
+  font-size: 14px;
+  font-weight: bold;
+  color: black;
+}
+
+#ind_res .card-footer {
+  font-weight: bold;
+  font-size: 14px;
+  background-color: white;
+}
+
+.btn-default {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.card-img-top {
+  width: 150px;
+  height: 100px;
+  float: left;
+  margin-right: 5px;
+  border-radius: 5px;
+}
+
+p {
+  text-align: justify;
+}
+
+#viewmenu {
+  margin-left: 20px;
+}
+
+.checked {
+  color: orange;
+}
+
+.rating {
+  font-size: 12px;
+}
+
+.fa-phone-square {
+  margin-right: 2px;
+}
+
+.fa-bars {
+  margin-right: 2px;
+}
