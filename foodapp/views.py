@@ -31,23 +31,19 @@ def Logout(request):
     return redirect("login")
 
 def customerRegister(request):
-	form =CustomerSignUpForm(request.POST or None)
-	if form.is_valid():
-		user      = form.save(commit=False)
-		username  =	form.cleaned_data['email']
-		password  = form.cleaned_data['password']
-		user.is_customer=True
-		user.set_password(password)
-		user.save()
-		user = authenticate(username=username,password=password)
-		if user is not None:
-			if user.is_active:
-				login(request,user)
-				return redirect("ccreate")
-	context ={
-		'form':form
-	}
-	return render(request,'cust_signup.html',context)
+    if request.method=='POST':
+        form =CustomerForm(request.POST,request.FILES)
+        if form.is_valid():
+            print("-------->",form.data)
+            Customer=form1.save()
+            Customer.set_password(Farmer.password)
+            Farmer.is_customer = True
+            Customer.is_owner=False
+            Customer.is_agree=True
+            Customer.save()
+    else:
+        form=CustomerForm()
+    return render(request,'cust_signup.html',{'form':form})
 
 def createCustomer(request):
 	form = CustomerForm(request.POST or None)
@@ -97,7 +93,7 @@ Authentication Ends
 
 ############################################################### Customer Side Stuff ###############################################
 def index(request):
-    return render(request, "")
+    return render(request, "customer_home.html")
 
 
 def orderplaced(request):

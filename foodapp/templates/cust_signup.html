@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Login</title>
+        <title>SignUp</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -13,11 +13,11 @@
             .container-fluid{
                 height: 100vh;
                 display: flex;
-                background-image: url("{% static  'images/slider-image1.jpg' %}");
+                background-image: url("{% static 'images/slider-image3.jpg' %}");
             }
            .card{
-               width: 400px;
-               height: 400px;
+               min-width: 400px;
+               min-height: 400px;
                margin-top:auto;
                margin-bottom: auto;
                margin-left: 100px;
@@ -29,24 +29,71 @@
         <div class="container-fluid">
         <div class="card">
             <div class="card-body">
-                <div class="card-title"><h2>LogIn</h2></div>
-                {% if error_message %}
-                  <p><strong>{{ error_message }}</strong></p>
-                {% endif %}
-                <form method="POST" >
+                <div class="card-title"><h2>SignUp</h2></div>
+                <form method="POST" enctype= "multipart/form-data">
                   {% csrf_token %}
-                  {% for field in form %}
+                  <!-- {{form}} -->
+                    <div class="row">
+                        <div class="col">
                     <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-12">
-                            <span class="text-danger small">{{ field.errors }}</span>
-                        </div>
-                        <label class="control-label col-sm-4">{{ field.label_tag }}</label>
-                        <div class="col-sm-7">{{ field }}</div>
+                      <label for="fname">First Name:</label>
+                      <!-- <input type="text" class="form-control" placeholder="Enter FirstName" id="fname"> -->
+                      {{form.f_name}}
                     </div>
-                  {% endfor %}
-                    <button type="submit" class="btn btn-danger">LogIn</button>
+                    <div class="form-group">
+                        <label for="mname">Middle Name:</label>
+                        <!-- <input type="text" class="form-control" placeholder="Enter MiddleName" id="mname"> -->
+                        {{form.m_name}}
+                    </div>
+                    <div class="form-group">
+                        <label for="lname">Last Name:</label>
+                        <!-- <input type="text" class="form-control" placeholder="Enter LastName" id="lname"> -->
+                        {{form.l_name}}
+                    </div>
+                    </div>
+                    <div class="col">
+                    <div class="form-group">
+                        <label for="email">Email address:</label>
+                        <!-- <input type="email" class="form-control" placeholder="Enter Email" id="email"> -->
+                        {{form.email}}
+                    </div>
+                    <div class="form-group">
+                      <label for="pwd">Password:</label>
+                      <!-- <input type="password" class="form-control" placeholder="Enter Password" id="pwd"> -->
+                      {{form.password1}}
+                    </div>
+                    <div class="form-group">
+                        <label for="repwd">Re-Enter Password:</label>
+                        <!-- <input type="password" class="form-control" placeholder="Re-Enter Password" id="repwd"> -->
+                        {{form.password2}}
+                      </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="address1">Enter Address1:</label>
+                            <!-- <input type="text" class="form-control" placeholder="Enter HouseNo./Locality" id="address1"> -->
+                            {{form.address_line_1}}
+                          </div>
+                          <div class="form-group">
+                            <label for="address2">Enter Address2:</label>
+                            <!-- <input type="text" class="form-control" placeholder="Enter Landmark/City" id="address2"> -->
+                            {{form.address_line_2}}
+                          </div>
+                          <div class="form-group">
+                            <label for="pincode">Enter Pincode:</label>
+                            <!-- <input type="number" class="form-control" placeholder="Enter Pincode" id="pincode"> -->
+                            {{form.pin_code}}
+                          </div>
+                    </div>
+            </div>
+            <div class="form-group">
+              <label for="pincode">Enter Pincode:</label>
+              <!-- <input type="number" class="form-control" placeholder="Enter Pincode" id="pincode"> -->
+              {{form.profile_image}}
+            </div>
+            <button type="submit" class="btn btn-danger">SignUp</button>
                   </form><br>
-                  <a href="{% url "register" %}" style="color:black;">Don't have an account? SignUp here!</a>
+                  <a href="{% url "login" %}" style="color:black;">Already have an account? LogIn here!</a>
             </div>
           </div>
         </div>

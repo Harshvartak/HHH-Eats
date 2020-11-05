@@ -14,5 +14,5 @@ urlpatterns = [
     ),
     path("register/",views.register,name="register"),
     path("customer/register",views.customerRegister,name="customer_register"),
-    path("customer/complete",views.createCustomer,name="ccreate"),
+    path("customer/home",views.index,name="customer_home"),
 ]
