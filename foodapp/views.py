@@ -56,7 +56,7 @@ def createCustomer(request):
 		instance.save()
 		return redirect("profile")
 	context={
-	'form':form,
+	'form':form, 
 	'title':"Complete Your profile"
 	}
 	return render(request,'profile_form.html',context)
@@ -132,29 +132,14 @@ def updateCustomer(request, id):
 
 def restuarantMenu(request, pk=None):
 
-    menu = Menu.objects.filter(r_id=pk)
-    rest = Restaurant.objects.filter(id=pk)
+    menu = Menu.objects.get(r_id=pk)
+    rest = Restaurant.objects.get(id=pk)
     items = []
-    for i in menu:
-        item = Item.objects.filter(fname=i.item_id)
-        for content in item:
-            temp = []
-            temp.append(content.fname)
-            temp.append(content.category)
-            temp.append(i.price)
-            temp.append(i.id)
-            temp.append(rest[0].status)
-            temp.append(i.quantity)
-            items.append(temp)
-    context = {
-        "items": items,
-        "rid": pk,
-        "rname": rest[0].rname,
-        "rmin": rest[0].min_ord,
-        "rinfo": rest[0].info,
-        "rlocation": rest[0].location,
+    context={
+        'rest':rest,
+        'menu':menu
     }
-    return render(request, "webapp/menu.html", context)
+    return render(request, "menu.html", context)
 
 
 @login_required
@@ -368,3 +353,13 @@ def orderlist(request):
     }
 
     return render(request, "webapp/order-list.html", context)
+
+def listRestaurant(request):
+    data=Restaurant.objects.all()
+    print(data)
+
+    return render(request,"restaurant.html",{"Restaurants":data})
+
+
+def testing(request):
+    print(dir(test.objects.all()[0]))

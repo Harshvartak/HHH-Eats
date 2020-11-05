@@ -22,7 +22,7 @@ class UserCreationForm2(forms.ModelForm):
     password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
     class Meta:
         model =Account
-        fields = ('email',)
+        fields = "__all__"
 
     def clean_password2(self):
         # Check that the two password entries match
@@ -255,7 +255,7 @@ class RestuarantForm(forms.ModelForm):
         model = Owner
         fields = ['email','f_name','m_name','l_name','address_line_1','address_line_2','City','pin_code','Registration_Number','pan_no','logo']
     def __init__(self, *args, **kwargs):
-        super(CustomerForm, self).__init__(*args, **kwargs)
+        super(RestuarantForm, self).__init__(*args, **kwargs)
         self.fields["f_name"].widget.attrs["class"] = "form-control"
         self.fields["f_name"].widget.attrs["id"] = "fname"
         self.fields["f_name"].widget.attrs["placeholder"] = "Enter your firstname"
