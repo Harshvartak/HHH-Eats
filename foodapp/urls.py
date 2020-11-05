@@ -19,5 +19,5 @@ urlpatterns = [
     path("owner/home",views.rest_index,name="restaurant_home"),
     path("showMenu/",views.listRestaurant,name="ListRestaurant"),
     path("menu/<int:pk>",views.restuarantMenu,name="restuarantMenu"),
-    path("test/",views.testing,name="test")
+    # path("test/",views.testing,name="test")
 ]

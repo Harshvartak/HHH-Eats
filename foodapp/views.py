@@ -56,7 +56,7 @@ def createCustomer(request):
 		instance.save()
 		return redirect("profile")
 	context={
-	'form':form,
+	'form':form, 
 	'title':"Complete Your profile"
 	}
 	return render(request,'profile_form.html',context)
