@@ -8,7 +8,6 @@ from django.core.exceptions import ValidationError
 class LoginForm(AuthenticationForm):
     def __init__(self, *args, **kwargs):
         super(LoginForm, self).__init__(*args, **kwargs)
-
         self.fields["username"].widget.attrs["class"] = "form-control"
         self.fields["username"].widget.attrs["id"] = "email"
         self.fields["username"].widget.attrs["placeholder"] = "Enter email"
@@ -16,8 +15,30 @@ class LoginForm(AuthenticationForm):
         self.fields["password"].widget.attrs["id"] = "pwd"
         self.fields["password"].widget.attrs["placeholder"] = "Enter password"
 
+class UserCreationForm2(forms.ModelForm):
+    """A form for creating new users. Includes all the required
+    fields, plus a repeated password."""
+    password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
+    class Meta:
+        model =Account
+        fields = ('email',)
 
-# ))
+    def clean_password2(self):
+        # Check that the two password entries match
+        password1 = self.cleaned_data.get("password1")
+        password2 = self.cleaned_data.get("password2")
+        if password1 and password2 and password1 != password2:
+            raise ValidationError("Passwords don't match")
+        return password2
+
+    def save(self, commit=True):
+        # Save the provided password in hashed format
+        user = super().save(commit=False)
+        user.set_password(self.cleaned_data["password1"])
+        if commit:
+            user.save()
+        return user
 
 
 class UserCreationForm(forms.ModelForm):
@@ -62,7 +83,7 @@ class UserCreationForm(forms.ModelForm):
         self.fields["pin_code"].widget.attrs["class"] = "form-control"
         self.fields["pin_code"].widget.attrs["id"] = "address1"
         self.fields["pin_code"].widget.attrs["placeholder"] = "Enter your pincode"
-        
+
 
     def clean_password2(self):
         # Check that the two password entries match
@@ -95,7 +116,6 @@ class UserChangeForm(forms.ModelForm):
             'using <a href="../password/">this form</a>.'
         ),
     )
-
     class Meta:
         model = Account
         fields = "__all__"
@@ -161,11 +181,9 @@ class OwnerChangeForm(forms.ModelForm):
 
 class CustomerSignUpForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
-
     class Meta:
         model = Account
         fields = ["email", "password"]
-
         def save(self, commit=True):
             user = super().save(commit=False)
             user.is_customer = True
@@ -180,7 +198,6 @@ class RestuarantSignUpForm(forms.ModelForm):
     class Meta:
         model = Account
         fields = ["email", "password"]
-
         def save(self, commit=True):
             user = super().save(commit=False)
             user.is_restaurant = True
@@ -188,22 +205,12 @@ class RestuarantSignUpForm(forms.ModelForm):
                 user.save()
             return user
 
-
 class CustomerForm(forms.ModelForm):
     class Meta:
         model = Customer
-        fields = ["profile_image"]
-
+        fields = "__all__"
 
 class RestuarantForm(forms.ModelForm):
     class Meta:
         model = Restaurant
-        fields = [
-            "rname",
-            "info",
-            "location",
-            "r_logo",
-            "min_ord",
-            "status",
-            "approved",
-        ]
+        fields = "__all__"
