@@ -30,7 +30,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="card-title"><h2>SignUp</h2></div>
-                <form method="POST">
+                <form method="POST" enctype= "multipart/form-data">
                   {% csrf_token %}
                   <!-- {{form}} -->
                     <div class="row">
@@ -83,6 +83,23 @@
                             <label for="pincode">Enter Pincode:</label>
                             <!-- <input type="number" class="form-control" placeholder="Enter Pincode" id="pincode"> -->
                             {{form.pin_code}}
+                          </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="address1">Enter Address1:</label>
+                            <!-- <input type="text" class="form-control" placeholder="Enter HouseNo./Locality" id="address1"> -->
+                            {{form.Registration_Number}}
+                          </div>
+                          <div class="form-group">
+                            <label for="address2">Enter Address2:</label>
+                            <!-- <input type="text" class="form-control" placeholder="Enter Landmark/City" id="address2"> -->
+                            {{form.pan_no}}
+                          </div>
+                          <div class="form-group">
+                            <label for="pincode">Enter Pincode:</label>
+                            <!-- <input type="number" class="form-control" placeholder="Enter Pincode" id="pincode"> -->
+                            {{form.logo}}
                           </div>
                     </div>
             </div>

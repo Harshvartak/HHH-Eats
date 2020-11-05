@@ -10,7 +10,7 @@ from django import forms
 # Register your models here.
 class BaseUserAdmin(UserAdmin):
     form = UserChangeForm
-    add_form = UserCreationForm
+    add_form = UserCreationForm2
 
     list_display = ("email", "f_name", "m_name", "l_name")
     search_fields = ("email",)
@@ -65,7 +65,7 @@ class BaseUserAdmin(UserAdmin):
 
 class CustomerAdmin(UserAdmin):
     form = CustomerChangeForm
-    add_form = UserCreationForm
+    add_form = UserCreationForm2
 
     list_display = ("email", "f_name", "m_name", "l_name")
     search_fields = ("email",)
@@ -121,7 +121,7 @@ class CustomerAdmin(UserAdmin):
 
 class OwnerAdmin(UserAdmin):
     form = OwnerChangeForm
-    add_form = UserCreationForm
+    add_form = UserCreationForm2
 
     list_display = ("email", "f_name", "m_name", "l_name")
     search_fields = ("email",)

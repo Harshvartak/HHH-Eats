@@ -13,7 +13,6 @@ from django.http import HttpResponse
 Authentication Starts
 """
 def register(request):
-
     form=UserCreationForm(request.POST)
     print(form.is_valid(),request.method)
     if request.method=="POST" :
@@ -24,13 +23,72 @@ def register(request):
             return HttpResponse("Kya haal")
         else:
             print(form.errors)
-
     return render(request,"signup.html",{'form':form})
 
 
 def Logout(request):
     logout(request)
     return redirect("login")
+
+def customerRegister(request):
+    if request.method=='POST':
+        form =CustomerForm(request.POST,request.FILES)
+        if form.is_valid():
+            print("-------->",form.data)
+            Customer=form.save()
+            Customer.set_password(Customer.password)
+            Customer.is_customer = True
+            Customer.is_owner=False
+            Customer.is_agree=True
+            Customer.save()
+            return redirect('customer_home')
+        else:
+            print(form.errors)
+    else:
+        form=CustomerForm()
+    return render(request,'cust_signup.html',{'form':form})
+
+def createCustomer(request):
+	form = CustomerForm(request.POST or None)
+	if form.is_valid():
+		instance = form.save(commit=False)
+		instance.user = request.user
+		instance.save()
+		return redirect("profile")
+	context={
+	'form':form,
+	'title':"Complete Your profile"
+	}
+	return render(request,'profile_form.html',context)
+
+def RestaurantRegister(request):
+    if request.method=='POST':
+
+        form =RestuarantForm(request.POST,request.FILES)
+        if form.is_valid():
+            print("-------->",form.data)
+            Owner=form1.save()
+            Owner.set_password(Farmer.password)
+            Owner.is_customer = False
+            Owner.is_owner=True
+            Owner.is_agree=True
+            Owner.save()
+            return redirect('restaurant_home')
+    else:
+        form=RestuarantForm()
+    return render(request,'rest_signup.html',{'form':form})
+
+
+@login_required
+def createRestaurant(request):
+    form = RestuarantForm(request.POST or None, request.FILES or None)
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.user = request.user
+        instance.save()
+        return redirect("rprofile")
+    context = {"form": form, "title": "Complete Your Restaurant profile"}
+    return render(request, "webapp/rest_profile_form.html", context)
 
 
 """
@@ -39,7 +97,7 @@ Authentication Ends
 
 ############################################################### Customer Side Stuff ###############################################
 def index(request):
-    return render(request, "")
+    return render(request, "customer_home.html")
 
 
 def orderplaced(request):
@@ -61,18 +119,6 @@ def customerProfile(request, pk=None):
     else:
         user = request.user
     return render(request, "webapp/profile.html", {"user": user})
-
-
-def createCustomer(request):
-    form = CustomerForm(request.POST or None)
-    if form.is_valid():
-        instance = form.save(commit=False)
-        instance.user = request.user
-        instance.save()
-        return redirect("profile")
-    context = {"form": form, "title": "Complete Your profile"}
-    return render(request, "webapp/profile_form.html", context)
-
 
 @login_required
 def updateCustomer(request, id):
@@ -156,22 +202,8 @@ def checkout(request):
 ########################################################### Restaurant side stuff ###################################################
 
 # creating restuarant account
-def restRegister(request):
-    form = RestuarantSignUpForm(request.POST or None)
-    if form.is_valid():
-        user = form.save(commit=False)
-        username = form.cleaned_data["username"]
-        password = form.cleaned_data["password"]
-        user.is_restaurant = True
-        user.set_password(password)
-        user.save()
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            if user.is_active:
-                login(request, user)
-                return redirect("rcreate")
-    context = {"form": form}
-    return render(request, "webapp/restsignup.html", context)
+def rest_index(request):
+    return render(request,'rest_home.html')
 
 
 # restaurant profile view
@@ -184,16 +216,7 @@ def restaurantProfile(request, pk=None):
 
 
 # create restaurant detail
-@login_required
-def createRestaurant(request):
-    form = RestuarantForm(request.POST or None, request.FILES or None)
-    if form.is_valid():
-        instance = form.save(commit=False)
-        instance.user = request.user
-        instance.save()
-        return redirect("rprofile")
-    context = {"form": form, "title": "Complete Your Restaurant profile"}
-    return render(request, "webapp/rest_profile_form.html", context)
+
 
 
 # Update restaurant detail
