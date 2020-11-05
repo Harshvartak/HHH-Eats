@@ -247,6 +247,48 @@ class CustomerForm(forms.ModelForm):
         self.fields["profile_image"].widget.attrs["placeholder"] = "Your Profile Image"
 
 class RestuarantForm(forms.ModelForm):
+    password1 = forms.CharField(label="Password", widget=forms.PasswordInput)
+    password2 = forms.CharField(
+        label="Password confirmation", widget=forms.PasswordInput
+    )
     class Meta:
-        model = Restaurant
-        fields = "__all__"
+        model = Owner
+        fields = ['email','f_name','m_name','l_name','address_line_1','address_line_2','City','pin_code','Registration_Numberpan_no','logo']
+    def __init__(self, *args, **kwargs):
+        super(CustomerForm, self).__init__(*args, **kwargs)
+        self.fields["f_name"].widget.attrs["class"] = "form-control"
+        self.fields["f_name"].widget.attrs["id"] = "fname"
+        self.fields["f_name"].widget.attrs["placeholder"] = "Enter your firstname"
+        self.fields["m_name"].widget.attrs["class"] = "form-control"
+        self.fields["m_name"].widget.attrs["id"] = "mname"
+        self.fields["m_name"].widget.attrs["placeholder"] = "Enter your middlename"
+        self.fields["l_name"].widget.attrs["class"] = "form-control"
+        self.fields["l_name"].widget.attrs["id"] = "lname"
+        self.fields["l_name"].widget.attrs["placeholder"] = "Enter your lastname"
+        self.fields["email"].widget.attrs["class"] = "form-control"
+        self.fields["email"].widget.attrs["id"] = "email"
+        self.fields["email"].widget.attrs["placeholder"] = "Enter your email"
+        self.fields["password1"].widget.attrs["class"] = "form-control"
+        self.fields["password1"].widget.attrs["id"] = "fname"
+        self.fields["password1"].widget.attrs["placeholder"] = "Enter your password"
+        self.fields["password2"].widget.attrs["class"] = "form-control"
+        self.fields["password2"].widget.attrs["id"] = "fname"
+        self.fields["password2"].widget.attrs["placeholder"] = "Confirm your password"
+        self.fields["address_line_1"].widget.attrs["class"] = "form-control"
+        self.fields["address_line_1"].widget.attrs["id"] = "address1"
+        self.fields["address_line_1"].widget.attrs["placeholder"] = "Address line 1"
+        self.fields["address_line_2"].widget.attrs["class"] = "form-control"
+        self.fields["address_line_2"].widget.attrs["id"] = "address2"
+        self.fields["address_line_2"].widget.attrs["placeholder"] = "Address line 2"
+        self.fields["pin_code"].widget.attrs["class"] = "form-control"
+        self.fields["pin_code"].widget.attrs["id"] = "address1"
+        self.fields["pin_code"].widget.attrs["placeholder"] = "Enter your pincode"
+        self.fields["Registration_Number"].widget.attrs["class"] = "form-control"
+        self.fields["Registration_Number"].widget.attrs["id"] = "Registration_Number"
+        self.fields["Registration_Number"].widget.attrs["placeholder"] = "Registration Number Of restaurant"
+        self.fields["pan_no"].widget.attrs["class"] = "form-control"
+        self.fields["pan_no"].widget.attrs["id"] = "pan_number"
+        self.fields["pan_no"].widget.attrs["placeholder"] = "Pan Number"
+        self.fields["logo"].widget.attrs["class"] = "form-control"
+        self.fields["logo"].widget.attrs["id"] = "logo"
+        self.fields["logo"].widget.attrs["placeholder"] = "Logo"

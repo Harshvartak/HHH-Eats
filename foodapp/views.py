@@ -58,22 +58,21 @@ def createCustomer(request):
 	}
 	return render(request,'profile_form.html',context)
 
-def restRegister(request):
-    form = RestuarantSignUpForm(request.POST or None)
-    if form.is_valid():
-        user = form.save(commit=False)
-        username = form.cleaned_data["username"]
-        password = form.cleaned_data["password"]
-        user.is_restaurant = True
-        user.set_password(password)
-        user.save()
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            if user.is_active:
-                login(request, user)
-                return redirect("rcreate")
-    context = {"form": form}
-    return render(request, "webapp/restsignup.html", context)
+def RestaurantRegister(request):
+    if request.method=='POST':
+        form =RestuarantForm(request.POST,request.FILES)
+        if form.is_valid():
+            print("-------->",form.data)
+            Owner=form1.save()
+            Owner.set_password(Farmer.password)
+            Owner.is_customer = False
+            Owner.is_owner=True
+            Owner.is_agree=True
+            Owner.save()
+    else:
+        form=RestuarantForm()
+    return render(request,'rest_signup.html',{'form':form})
+
 
 @login_required
 def createRestaurant(request):
@@ -198,7 +197,8 @@ def checkout(request):
 ########################################################### Restaurant side stuff ###################################################
 
 # creating restuarant account
-
+def rest_index(request):
+    return render(request,'rest_home.html')
 
 
 # restaurant profile view
