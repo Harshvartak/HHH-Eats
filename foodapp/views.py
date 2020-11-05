@@ -35,12 +35,15 @@ def customerRegister(request):
         form =CustomerForm(request.POST,request.FILES)
         if form.is_valid():
             print("-------->",form.data)
-            Customer=form1.save()
-            Customer.set_password(Farmer.password)
-            Farmer.is_customer = True
+            Customer=form.save()
+            Customer.set_password(Customer.password)
+            Customer.is_customer = True
             Customer.is_owner=False
             Customer.is_agree=True
             Customer.save()
+            return redirect('customer_home')
+        else:
+            print(form.errors)
     else:
         form=CustomerForm()
     return render(request,'cust_signup.html',{'form':form})
@@ -60,6 +63,7 @@ def createCustomer(request):
 
 def RestaurantRegister(request):
     if request.method=='POST':
+
         form =RestuarantForm(request.POST,request.FILES)
         if form.is_valid():
             print("-------->",form.data)
@@ -69,6 +73,7 @@ def RestaurantRegister(request):
             Owner.is_owner=True
             Owner.is_agree=True
             Owner.save()
+            return redirect('restaurant_home')
     else:
         form=RestuarantForm()
     return render(request,'rest_signup.html',{'form':form})

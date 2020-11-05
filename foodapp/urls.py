@@ -16,5 +16,5 @@ urlpatterns = [
     path("customer/register",views.customerRegister,name="customer_register"),
     path("customer/home",views.index,name="customer_home"),
     path("owner/register",views.RestaurantRegister,name="restaurant_register"),
-    path("owner/home"),
+    path("owner/home",views.rest_index,name="restaurant_home"),
 ]

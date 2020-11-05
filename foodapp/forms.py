@@ -253,7 +253,7 @@ class RestuarantForm(forms.ModelForm):
     )
     class Meta:
         model = Owner
-        fields = ['email','f_name','m_name','l_name','address_line_1','address_line_2','City','pin_code','Registration_Numberpan_no','logo']
+        fields = ['email','f_name','m_name','l_name','address_line_1','address_line_2','City','pin_code','Registration_Number','pan_no','logo']
     def __init__(self, *args, **kwargs):
         super(CustomerForm, self).__init__(*args, **kwargs)
         self.fields["f_name"].widget.attrs["class"] = "form-control"
