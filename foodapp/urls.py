@@ -17,4 +17,7 @@ urlpatterns = [
     path("customer/home",views.index,name="customer_home"),
     path("owner/register",views.RestaurantRegister,name="restaurant_register"),
     path("owner/home",views.rest_index,name="restaurant_home"),
+    path("showMenu/",views.listRestaurant,name="ListRestaurant"),
+    path("menu/<int:pk>",views.restuarantMenu,name="restuarantMenu"),
+    path("test/",views.testing,name="test")
 ]

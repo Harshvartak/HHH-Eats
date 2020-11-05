@@ -92,7 +92,7 @@ class Customer(Account):
 
 
 class Owner(Account):
-    Registration_Number = models.IntegerField(blank=False, null=False)
+    Registration_Number = models.IntegerField(blank=True, null=True)
     pan_no = models.CharField(max_length=10, blank=True, null=True)
     logo = models.ImageField(
         upload_to="logo",
@@ -110,8 +110,11 @@ class Restaurant(models.Model):
     info = models.CharField(max_length=40, blank=False)
     min_ord = models.CharField(max_length=5, blank=False)
     location = models.CharField(max_length=40, blank=False)
-    r_logo = models.FileField(blank=False)
-
+    r_logo = models.FileField(upload_to="rest_logo",blank=False)
+    speciality=models.CharField(max_length=200,null=True,blank=True)
+    hours=models.CharField(max_length=200,null=True,blank=True)
+    rating=models.IntegerField(null=True,blank=True)
+    phone=models.CharField(max_length=20,null=True,blank=True)
     REST_STATE_OPEN = "Open"
     REST_STATE_CLOSE = "Closed"
     REST_STATE_CHOICES = (
@@ -127,24 +130,26 @@ class Restaurant(models.Model):
         return self.rname
 
 
-class Item(models.Model):
+class MenuItem(models.Model):
     id = models.AutoField(primary_key=True)
     fname = models.CharField(max_length=30, blank=False)
     category = models.CharField(max_length=50, blank=False)
-
+    description=models.CharField(max_length=200, blank=True,null=True)
+    price = models.IntegerField(blank=False)
     def __str__(self):
         return self.fname
 
 
 class Menu(models.Model):
     id = models.AutoField(primary_key=True)
-    item_id = models.ForeignKey(Item, on_delete=models.CASCADE)
+    r_menu = models.ManyToManyField(MenuItem)
     r_id = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
-    price = models.IntegerField(blank=False)
-    quantity = models.IntegerField(blank=False, default=0)
+
+    # price = models.IntegerField(blank=False)
+    # quantity = models.IntegerField(blank=False, default=0)
 
     def __str__(self):
-        return self.item_id.fname + " - " + str(self.price)
+        return self.r_id.rname + " - "+"Menu"
 
 
 class Order(models.Model):
@@ -186,3 +191,7 @@ class orderItem(models.Model):
 
     def __str__(self):
         return str(self.id)
+
+
+# class test(models.Model):
+    # val=models.ManyToManyField(Item)
