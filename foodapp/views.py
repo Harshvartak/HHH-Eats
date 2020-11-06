@@ -361,5 +361,37 @@ def listRestaurant(request):
     return render(request,"restaurant.html",{"Restaurants":data})
 
 
-def testing(request):
-    print(dir(test.objects.all()[0]))
+
+def new_order(request,pk,rid):
+    item=get_object_or_404(MenuItem,pk=pk)
+    order=Order.objects.filter(orderedBy=Customer.objects.get(email=request.user.email),status='Waiting').first()
+    
+    
+    print("----------",order,item)
+    if order is not None:
+        print("The value",order.items.filter(item_id__id=pk))
+        if order.items.filter(item_id__pk=pk).exists():
+            print("Yes existssssssssss")
+            fooditem=order.items.filter(item_id__pk=pk).first()
+            fooditem.quantity+=1
+            fooditem.save()
+        else:
+            new,created=orderItem.objects.get_or_create(item_id=item,orderedBy=Customer.objects.get(email=request.user.email))
+            new.quantity=1
+            order.items.add(new)
+            new.save()
+
+    else:
+        order=Order.objects.create(orderedBy=Customer.objects.get(email=request.user.email),r_id=Restaurant.objects.get(id=rid))
+        new,created=orderItem.objects.get_or_create(item_id=item,orderedBy=Customer.objects.get(email=request.user.email))
+        new.quantity=1
+        new.save()
+        order.items.add(new)
+        order.save()
+
+    return redirect('restuarantMenu',pk=rid)
+
+
+
+def test(request):
+    print("---------------------",   (request.user.email))

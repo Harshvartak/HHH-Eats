@@ -1,5 +1,6 @@
 {% load static %}
 {% load giverange %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -56,6 +57,7 @@
                     <div class="resname">{{rest.rname}}</div>
                     <div class="rating">
                     {% for i in rest.rating|val %}
+
                     <span class="fa fa-star checked"></span>
                     {% endfor %}
                     <!-- <span class="fa fa-star checked"></span> -->
@@ -72,12 +74,17 @@
                     <div>Address:{{rest.location}}</div>
                </div>
           </div><hr>
-          <div class="fooditems">Menu</div>
+          <div class="fooditems">Menu {{request.user|cart}}  </div>
+          
           {% for i in menu.r_menu.all %}
-          <div class="food-item">{{i.fname}}<span class="food-cost">Rs.{{i.price}}&nbsp;&nbsp;&nbsp;<i class="fa fa-plus-square-o" aria-hidden="true"></i>&nbsp;0&nbsp;<i class="fa fa-minus-square-o" aria-hidden="true"></i></span>
+          <form method="POST">
+               {% csrf_token %}
+          <div class="food-item">{{i.fname}}<span class="food-cost">Rs.{{i.price}}&nbsp;&nbsp;&nbsp; <a href="{% url 'NewOrder' pk=i.id rid=rest.id %}"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a>&nbsp;0&nbsp;<i class="fa fa-minus-square-o" aria-hidden="true"></i></span>
               
           <div class="food-desc">{{i.description}}</div>
+          </form>
           {% endfor %}
+     
           <!-- <div class="food-item">Fried Mac n' Cheese<span class="food-cost">$22&nbsp;&nbsp;&nbsp;<i class="fa fa-plus-square-o" aria-hidden="true"></i>&nbsp;0&nbsp;<i class="fa fa-minus-square-o" aria-hidden="true"></i></span> -->
           <!-- <div class="food-desc">Served with BBQ ranch</div> -->
 

@@ -4,6 +4,8 @@ from django.contrib.auth import views as auth_views
 from .forms import LoginForm
 from . import views
 
+
+# app_name="foodapp"
 urlpatterns = [
     path(
         "login/",
@@ -19,5 +21,6 @@ urlpatterns = [
     path("owner/home",views.rest_index,name="restaurant_home"),
     path("showMenu/",views.listRestaurant,name="ListRestaurant"),
     path("menu/<int:pk>",views.restuarantMenu,name="restuarantMenu"),
-    # path("test/",views.testing,name="test")
+    path("neworder/<int:pk>/<int:rid>",views.new_order,name="NewOrder"),
+    path("test/",views.test,name="test")
 ]
