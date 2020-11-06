@@ -178,7 +178,7 @@ class OwnerAdmin(UserAdmin):
 admin.site.unregister(Group)
 admin.site.register(Account, BaseUserAdmin)
 admin.site.register(Customer, CustomerAdmin)
-admin.site.register(Owner)#OwnerAdmin)
+admin.site.register(Owner,OwnerAdmin)
 admin.site.register(Restaurant)
 admin.site.register(MenuItem)
 admin.site.register(Menu)

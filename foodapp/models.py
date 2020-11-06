@@ -128,7 +128,8 @@ class Restaurant(models.Model):
 
     def __str__(self):
         return self.rname
-
+    def get_id(self):
+        return self.id
 
 class MenuItem(models.Model):
     id = models.AutoField(primary_key=True)
@@ -139,6 +140,8 @@ class MenuItem(models.Model):
     def __str__(self):
         return self.fname
 
+    def get_id(self):
+        return self.id
 
 class Menu(models.Model):
     id = models.AutoField(primary_key=True)
@@ -152,13 +155,28 @@ class Menu(models.Model):
         return self.r_id.rname + " - "+"Menu"
 
 
+
+class orderItem(models.Model):
+    
+    orderedBy = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    item_id = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
+    # ord_id = models.ForeignKey(Order, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=0)
+
+    def __str__(self):
+        return str(self.id)
+
+
 class Order(models.Model):
     id = models.AutoField(primary_key=True)
+    orderedBy = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    r_id = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
+    items=models.ManyToManyField(orderItem)
     total_amount = models.IntegerField(default=0)
     timestamp = models.DateTimeField(auto_now_add=True)
     delivery_addr = models.CharField(max_length=50, blank=True)
-    orderedBy = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    r_id = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
+    
+    
 
     ORDER_STATE_WAITING = "Waiting"
     ORDER_STATE_PLACED = "Placed"
@@ -183,14 +201,6 @@ class Order(models.Model):
         return str(self.id) + " " + self.status
 
 
-class orderItem(models.Model):
-    id = models.AutoField(primary_key=True)
-    item_id = models.ForeignKey(Menu, on_delete=models.CASCADE)
-    ord_id = models.ForeignKey(Order, on_delete=models.CASCADE)
-    quantity = models.IntegerField(default=0)
-
-    def __str__(self):
-        return str(self.id)
 
 
 # class test(models.Model):
