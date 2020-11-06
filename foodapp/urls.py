@@ -7,13 +7,7 @@ from . import views
 
 # app_name="foodapp"
 urlpatterns = [
-    path(
-        "login/",
-        auth_views.LoginView.as_view(
-            template_name="login.html", authentication_form=LoginForm
-        ),
-        name="login",
-    ),
+    path("login/",views.login_view,name="login"),
     path("register/",views.register,name="register"),
     path("customer/register",views.customerRegister,name="customer_register"),
     path("customer/home",views.index,name="customer_home"),
@@ -24,3 +18,11 @@ urlpatterns = [
     path("neworder/<int:pk>/<int:rid>",views.new_order,name="NewOrder"),
     path("test/",views.test,name="test")
 ]
+'''
+    path(
+        "login/",
+        auth_views.LoginView.as_view(
+            template_name="login.html", authentication_form=LoginForm
+        ),
+
+    ),'''

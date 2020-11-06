@@ -35,8 +35,8 @@ def customerRegister(request):
         form =CustomerForm(request.POST,request.FILES)
         if form.is_valid():
             print("-------->",form.data)
-            Customer=form.save()
-            Customer.set_password(Customer.password)
+            Customer=form.save(commit=False)
+            Customer.set_password(form.cleaned_data.get("password1"))
             Customer.is_customer = True
             Customer.is_owner=False
             Customer.is_agree=True
@@ -56,24 +56,26 @@ def createCustomer(request):
 		instance.save()
 		return redirect("profile")
 	context={
-	'form':form, 
+	'form':form,
 	'title':"Complete Your profile"
 	}
 	return render(request,'profile_form.html',context)
 
 def RestaurantRegister(request):
+    print("Here")
     if request.method=='POST':
-
         form =RestuarantForm(request.POST,request.FILES)
         if form.is_valid():
             print("-------->",form.data)
-            Owner=form1.save()
-            Owner.set_password(Farmer.password)
+            Owner=form.save(commit=False)
+            Owner.set_password(form.cleaned_data['password1'])
             Owner.is_customer = False
             Owner.is_owner=True
             Owner.is_agree=True
             Owner.save()
             return redirect('restaurant_home')
+        else:
+            print(form.errors)
     else:
         form=RestuarantForm()
     return render(request,'rest_signup.html',{'form':form})
@@ -365,8 +367,8 @@ def listRestaurant(request):
 def new_order(request,pk,rid):
     item=get_object_or_404(MenuItem,pk=pk)
     order=Order.objects.filter(orderedBy=Customer.objects.get(email=request.user.email),status='Waiting').first()
-    
-    
+
+
     print("----------",order,item)
     if order is not None:
         print("The value",order.items.filter(item_id__id=pk))
@@ -395,3 +397,26 @@ def new_order(request,pk,rid):
 
 def test(request):
     print("---------------------",   (request.user.email))
+
+
+
+def login_view(request):
+    form=AccountAuthenticationForm()
+    if request.POST:
+        form = AccountAuthenticationForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
+            user = authenticate(email=email, password=password)
+            if user.i_agree and user.is_active:
+                if user.is_customer:
+                    login(request, user)
+                    return redirect("customer_home")
+                elif user.is_owner:
+                    login(request,user)
+                    return redirect('restaurant_home')
+            else:
+                return redirect("login")
+        else:
+            form = AccountAuthenticationForm()
+    return render(request, "login.html", {"form":form})

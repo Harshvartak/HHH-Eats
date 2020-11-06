@@ -54,7 +54,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
         null=False,
     )
 
-    i_agree = models.BooleanField(default=False)
+    i_agree = models.BooleanField(default=True)
     date_joined = models.DateTimeField(verbose_name="date joined", auto_now_add=True)
     last_login = models.DateTimeField(verbose_name="last login", auto_now=True)
 
@@ -99,8 +99,6 @@ class Owner(Account):
         blank=True,
         null=True,
     )
-
-
 """AUTH MODELS END"""
 
 
@@ -157,7 +155,7 @@ class Menu(models.Model):
 
 
 class orderItem(models.Model):
-    
+
     orderedBy = models.ForeignKey(Customer, on_delete=models.CASCADE)
     item_id = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
     # ord_id = models.ForeignKey(Order, on_delete=models.CASCADE)
@@ -175,8 +173,8 @@ class Order(models.Model):
     total_amount = models.IntegerField(default=0)
     timestamp = models.DateTimeField(auto_now_add=True)
     delivery_addr = models.CharField(max_length=50, blank=True)
-    
-    
+
+
 
     ORDER_STATE_WAITING = "Waiting"
     ORDER_STATE_PLACED = "Placed"

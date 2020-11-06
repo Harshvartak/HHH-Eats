@@ -146,7 +146,9 @@ class OwnerAdmin(UserAdmin):
                     "address_line_2",
                     "City",
                     "pin_code",
-                    "profile_image",
+                    "Registration_Number",
+                    "pan_no",
+                    "logo",
                 )
             },
         ),

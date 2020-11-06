@@ -3,7 +3,7 @@ from django import forms
 from .models import *
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.core.exceptions import ValidationError
-
+from django.contrib.auth import authenticate
 
 class LoginForm(AuthenticationForm):
     def __init__(self, *args, **kwargs):
@@ -14,6 +14,38 @@ class LoginForm(AuthenticationForm):
         self.fields["password"].widget.attrs["class"] = "form-control"
         self.fields["password"].widget.attrs["id"] = "pwd"
         self.fields["password"].widget.attrs["placeholder"] = "Enter password"
+
+
+
+class AccountAuthenticationForm(forms.ModelForm):
+    email=forms.EmailField()
+    password = forms.CharField(
+        label="Password"
+        , widget=forms.PasswordInput
+    )
+    class Meta:
+        model = Account
+        fields = ('email', 'password')
+
+    def clean(self):
+        if self.is_valid():
+            username = self.cleaned_data['email']
+            password = self.cleaned_data['password']
+            print(username,password)
+            print(authenticate(password=password,username=username))
+            if not authenticate(password=password,username=username):
+                raise forms.ValidationError("Invalid login")
+
+
+    def __init__(self, *args, **kwargs):
+        super(AccountAuthenticationForm, self).__init__(*args, **kwargs)
+        self.fields["email"].widget.attrs["class"] = "form-control"
+        self.fields["email"].widget.attrs["id"] = "email"
+        self.fields["email"].widget.attrs["placeholder"] = "Enter email"
+        self.fields["password"].widget.attrs["class"] = "form-control"
+        self.fields["password"].widget.attrs["id"] = "pwd"
+        self.fields["password"].widget.attrs["placeholder"] = "Enter password"
+
 
 class UserCreationForm2(forms.ModelForm):
     """A form for creating new users. Includes all the required
