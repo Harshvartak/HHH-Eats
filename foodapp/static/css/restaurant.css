@@ -1,19 +1,25 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
 
 body {
-  background-image: url(../images/slider-image2.jpg);
+  background-color: #f3f3f3;
+  color: #33373d;
   font-family: 'Montserrat', sans-serif;
   overflow-x: hidden;
 }
 
 .navbar-brand {
-  color: red;
+  color: #ce3232;
   font-size: 24px;
   font-weight: bold;
-  margin-left: 100px;
+  margin-left: 120px;
   margin-top: 30px;
   padding-right: 100%;
-  padding-bottom: 100px;
+  padding-bottom: 50px;
+}
+
+.subtitle {
+  font-size: 30px;
+  font-weight: bold;
 }
 
 a:hover,
@@ -25,17 +31,34 @@ a:focus {
 
 #filters {
   height: 100vh;
-  opacity: 95%;
+  /* opacity: 95%; */
 }
 
-#restaurants {
-  height: auto;
-  background-color: #f8f8f8;
+#filters .card-header {
+  /* margin-top: 10px;
+  margin-left: 10px; */
+  font-weight: bold;
+  font-size: 20px;
+  background-color: white;
 }
 
-#restaurants .card-title {
-  margin-top: 10px;
-  margin-left: 10px;
+#filters .categories {
+  font-weight: bold;
+}
+
+.sort {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.sortorder {
+  font-size: 11px;
+  font-weight: bold;
+}
+
+#ind_res {
+  /* width: 550px; */
+  width: 600px;
 }
 
 #ind_res .card-header {
@@ -50,13 +73,18 @@ a:focus {
   color: #ce3232;
   padding: 0;
   margin: 0;
+  margin-top: 10px;
   line-height: 20px;
 }
 
 #ind_res .card-body {
   font-size: 14px;
   font-weight: bold;
-  color: black;
+}
+
+.value {
+  font-weight: lighter;
+  margin-left: 50px;
 }
 
 #ind_res .card-footer {
@@ -100,4 +128,9 @@ p {
 
 .fa-bars {
   margin-right: 2px;
+}
+
+.modal-body {
+  font-weight: bold;
+  color: #ce3232;
 }

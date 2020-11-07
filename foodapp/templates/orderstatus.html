@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <title>HHH EATS</title>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+     <link rel="stylesheet" href="./css/orderstatus.css">
+</head>
+
+<body>
+    <a href="temp.html" class="navbar-brand">HHHEATS</a>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card" id="currentorder">
+                    <div class="card-header" >Ongoing Order</div>
+                    <div class="card-body">
+                        <div class="restaurant">Restaurant Name</div>
+                        <div class="food-item">Fried Mac n' Cheese<span class="food-cost">$22</span></div>
+                        <div class="food-item">Fried Mac n' Cheese<span class="food-cost">$22</span></div>
+                        <div class="food-item">Fried Mac n' Cheese<span class="food-cost">$22</span></div>
+                        <div class="food-item">Fried Mac n' Cheese<span class="food-cost">$22</span></div>
+                        <hr>
+                        <div class="total">Grand Total<span class="total-cost">$88</span></div>
+                        <div class="status">Status</div>
+                        <div class="status_time">
+                            <div>Order Approved<i class="fa fa-thumbs-up" aria-hidden="true"></i><span class="timestamp">17:12:48</span></div>
+                            <div>In Process<i class="fa fa-refresh" aria-hidden="true"></i><span class="timestamp">17:13:20</span></div>
+                            <div>Prepared<i class="fa fa-check" aria-hidden="true"></i><span class="timestamp">17:42:48</span></div>
+                            <div>Picked Up<i class="fa fa-user" aria-hidden="true"></i><span class="timestamp">17:46:00</span></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="previousorders">Previous Orders</div>
+                <div class="card" id="previousorder">
+                    <div class="orderdetails">
+                    <div>Date</div>
+                    <div>Restaurant Name</div>
+                    <div>Total Cost</div>
+                    <div>Order Successful/Cancelled</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
