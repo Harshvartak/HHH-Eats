@@ -146,7 +146,9 @@ class OwnerAdmin(UserAdmin):
                     "address_line_2",
                     "City",
                     "pin_code",
-                    "profile_image",
+                    "Registration_Number",
+                    "pan_no",
+                    "logo",
                 )
             },
         ),
@@ -178,9 +180,10 @@ class OwnerAdmin(UserAdmin):
 admin.site.unregister(Group)
 admin.site.register(Account, BaseUserAdmin)
 admin.site.register(Customer, CustomerAdmin)
-admin.site.register(Owner, OwnerAdmin)
+admin.site.register(Owner,OwnerAdmin)
 admin.site.register(Restaurant)
-admin.site.register(Item)
+admin.site.register(MenuItem)
 admin.site.register(Menu)
 admin.site.register(Order)
 admin.site.register(orderItem)
+# admin.site.register(test)

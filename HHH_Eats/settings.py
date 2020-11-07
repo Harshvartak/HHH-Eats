@@ -75,6 +75,10 @@ TEMPLATES = [
 WSGI_APPLICATION = "HHH_Eats.wsgi.application"
 
 
+AUTHENTICATION_BACKENDS = (
+        'django.contrib.auth.backends.ModelBackend',
+    )
+
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 

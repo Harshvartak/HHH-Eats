@@ -54,7 +54,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
         null=False,
     )
 
-    i_agree = models.BooleanField(default=False)
+    i_agree = models.BooleanField(default=True)
     date_joined = models.DateTimeField(verbose_name="date joined", auto_now_add=True)
     last_login = models.DateTimeField(verbose_name="last login", auto_now=True)
 
@@ -92,15 +92,13 @@ class Customer(Account):
 
 
 class Owner(Account):
-    Registration_Number = models.IntegerField(blank=False, null=False)
+    Registration_Number = models.IntegerField(blank=True, null=True)
     pan_no = models.CharField(max_length=10, blank=True, null=True)
     logo = models.ImageField(
         upload_to="logo",
         blank=True,
         null=True,
     )
-
-
 """AUTH MODELS END"""
 
 
@@ -110,8 +108,11 @@ class Restaurant(models.Model):
     info = models.CharField(max_length=40, blank=False)
     min_ord = models.CharField(max_length=5, blank=False)
     location = models.CharField(max_length=40, blank=False)
-    r_logo = models.FileField(blank=False)
-
+    r_logo = models.FileField(upload_to="rest_logo",blank=False)
+    speciality=models.CharField(max_length=200,null=True,blank=True)
+    hours=models.CharField(max_length=200,null=True,blank=True)
+    rating=models.IntegerField(null=True,blank=True)
+    phone=models.CharField(max_length=20,null=True,blank=True)
     REST_STATE_OPEN = "Open"
     REST_STATE_CLOSE = "Closed"
     REST_STATE_CHOICES = (
@@ -125,35 +126,55 @@ class Restaurant(models.Model):
 
     def __str__(self):
         return self.rname
+    def get_id(self):
+        return self.id
 
-
-class Item(models.Model):
+class MenuItem(models.Model):
     id = models.AutoField(primary_key=True)
     fname = models.CharField(max_length=30, blank=False)
     category = models.CharField(max_length=50, blank=False)
-
+    description=models.CharField(max_length=200, blank=True,null=True)
+    price = models.IntegerField(blank=False)
     def __str__(self):
         return self.fname
 
+    def get_id(self):
+        return self.id
 
 class Menu(models.Model):
     id = models.AutoField(primary_key=True)
-    item_id = models.ForeignKey(Item, on_delete=models.CASCADE)
+    r_menu = models.ManyToManyField(MenuItem)
     r_id = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
-    price = models.IntegerField(blank=False)
-    quantity = models.IntegerField(blank=False, default=0)
+
+    # price = models.IntegerField(blank=False)
+    # quantity = models.IntegerField(blank=False, default=0)
 
     def __str__(self):
-        return self.item_id.fname + " - " + str(self.price)
+        return self.r_id.rname + " - "+"Menu"
+
+
+
+class orderItem(models.Model):
+
+    orderedBy = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    item_id = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
+    # ord_id = models.ForeignKey(Order, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=0)
+
+    def __str__(self):
+        return str(self.id)
 
 
 class Order(models.Model):
     id = models.AutoField(primary_key=True)
+    orderedBy = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    r_id = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
+    items=models.ManyToManyField(orderItem)
     total_amount = models.IntegerField(default=0)
     timestamp = models.DateTimeField(auto_now_add=True)
     delivery_addr = models.CharField(max_length=50, blank=True)
-    orderedBy = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    r_id = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
+
+
 
     ORDER_STATE_WAITING = "Waiting"
     ORDER_STATE_PLACED = "Placed"
@@ -178,11 +199,7 @@ class Order(models.Model):
         return str(self.id) + " " + self.status
 
 
-class orderItem(models.Model):
-    id = models.AutoField(primary_key=True)
-    item_id = models.ForeignKey(Menu, on_delete=models.CASCADE)
-    ord_id = models.ForeignKey(Order, on_delete=models.CASCADE)
-    quantity = models.IntegerField(default=0)
 
-    def __str__(self):
-        return str(self.id)
+
+# class test(models.Model):
+    # val=models.ManyToManyField(Item)

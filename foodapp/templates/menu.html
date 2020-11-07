@@ -1,3 +1,6 @@
+{% load static %}
+{% load giverange %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,17 +13,17 @@
      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-     <link rel="stylesheet" href="css/menu.css">
+     <link rel="stylesheet" href="{% static 'css/menu.css' %}">
 
 </head>
 <body>
-  <a href="temp.html" class="navbar-brand">HHHEATS</a>
+  <a href="{% url 'login' %}" class="navbar-brand">HHHEATS</a>
   <div id="menu" data-stellar-background-ratio="0.5">
           <div class="container">
                <div class="row">
                     <div class="col-md-6 col-sm-6">
                          <div class="menu-thumb">
-                              <a href="images/menu-image1.jpg" class="image-popup" title="American Breakfast">
+                              <a href="{% static 'images/menu-image1.jpg' %}" class="image-popup" title="American Breakfast">
                                    <img src="images/menu-image1.jpg" class="img-responsive" alt="">
                               </a>
                          </div>
@@ -51,34 +54,45 @@
                         </a>
                    </div>
                     </div>
-                    <div class="resname">Restaurant Name</div>
-                    <div class="rating"><span class="fa fa-star checked"></span>
+                    <div class="resname">{{rest.rname}}</div>
+                    <div class="rating">
+                    {% for i in rest.rating|val %}
+
                     <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
+                    {% endfor %}
+                    <!-- <span class="fa fa-star checked"></span> -->
+                    <!-- <span class="fa fa-star checked"></span> -->
+                    <!-- <span class="fa fa-star"></span> -->
+                    <!-- <span class="fa fa-star"></span> -->
                     <div class="review">100 Reviews</div>
                     </div>
                </div>
                <div class="resinfo">
-                    <div>Speciality:</div>
-                    <div>Hours:</div>
-                    <div>Cost:</div>
-                    <div>Address:</div>
+                    <div>Speciality:{{rest.speciality}}</div>
+                    <div>Hours:{{rest.hours}}</div>
+                    <div>Cost:{{rest.min_ord}}</div>
+                    <div>Address:{{rest.location}}</div>
                </div>
           </div><hr>
-          <div class="fooditems">Menu</div>
-          <div class="food-item">Seasonal Skillet Cornbread<span class="food-cost">$20&nbsp;&nbsp;&nbsp;<i class="fa fa-plus-square-o" aria-hidden="true"></i>&nbsp;0&nbsp;<i class="fa fa-minus-square-o" aria-hidden="true"></i></span>
-          <div class="food-desc">Served with home-made butter</div>
+          <div class="fooditems">Menu {{request.user|cart}}  </div>
+          
+          {% for i in menu.r_menu.all %}
+          <form method="POST">
+               {% csrf_token %}
+          <div class="food-item">{{i.fname}}<span class="food-cost">Rs.{{i.price}}&nbsp;&nbsp;&nbsp; <a href="{% url 'NewOrder' pk=i.id rid=rest.id %}"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a>&nbsp;0&nbsp;<i class="fa fa-minus-square-o" aria-hidden="true"></i></span>
+              
+          <div class="food-desc">{{i.description}}</div>
+          </form>
+          {% endfor %}
+     
+          <!-- <div class="food-item">Fried Mac n' Cheese<span class="food-cost">$22&nbsp;&nbsp;&nbsp;<i class="fa fa-plus-square-o" aria-hidden="true"></i>&nbsp;0&nbsp;<i class="fa fa-minus-square-o" aria-hidden="true"></i></span> -->
+          <!-- <div class="food-desc">Served with BBQ ranch</div> -->
 
-          <div class="food-item">Fried Mac n' Cheese<span class="food-cost">$22&nbsp;&nbsp;&nbsp;<i class="fa fa-plus-square-o" aria-hidden="true"></i>&nbsp;0&nbsp;<i class="fa fa-minus-square-o" aria-hidden="true"></i></span>
-          <div class="food-desc">Served with BBQ ranch</div>
+          <!-- <div class="food-item">BBQ Soul Rolls<span class="food-cost">$18&nbsp;&nbsp;&nbsp;<i class="fa fa-plus-square-o" aria-hidden="true"></i>&nbsp;0&nbsp;<i class="fa fa-minus-square-o" aria-hidden="true"></i></span> -->
+          <!-- <div class="food-desc">Chopped pork BBQ, cabbage collards and candied carrots served with Oak Island sauce and pepper jelly          </div> -->
 
-          <div class="food-item">BBQ Soul Rolls<span class="food-cost">$18&nbsp;&nbsp;&nbsp;<i class="fa fa-plus-square-o" aria-hidden="true"></i>&nbsp;0&nbsp;<i class="fa fa-minus-square-o" aria-hidden="true"></i></span>
-          <div class="food-desc">Chopped pork BBQ, cabbage collards and candied carrots served with Oak Island sauce and pepper jelly          </div>
-
-          <div class="food-item">Pimento Cheese Balls<span class="food-cost">$10&nbsp;&nbsp;&nbsp;<i class="fa fa-plus-square-o" aria-hidden="true"></i>&nbsp;0&nbsp;<i class="fa fa-minus-square-o" aria-hidden="true"></i></span>
-          <div class="food-desc">Served with spicy pepper jelly</div>
+          <!-- <div class="food-item">Pimento Cheese Balls<span class="food-cost">$10&nbsp;&nbsp;&nbsp;<i class="fa fa-plus-square-o" aria-hidden="true"></i>&nbsp;0&nbsp;<i class="fa fa-minus-square-o" aria-hidden="true"></i></span> -->
+          <!-- <div class="food-desc">Served with spicy pepper jelly</div> -->
           </div>
      </div>
 </body>
