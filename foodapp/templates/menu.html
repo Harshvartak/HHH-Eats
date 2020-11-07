@@ -74,7 +74,7 @@
                     <div>Address:{{rest.location}}</div>
                </div>
           </div><hr>
-          <div class="fooditems">Menu {{request.user|cart}}  </div>
+          <div class="fooditems">Menu <button type="button" class="btn btn-danger">View Cart<i class="fa fa-shopping-cart" aria-hidden="true"></i>{{request.user|cart}}</button>  </div>
           
           {% for i in menu.r_menu.all %}
           <form method="POST">
