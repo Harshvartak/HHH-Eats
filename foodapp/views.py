@@ -497,3 +497,21 @@ def view_cart(request,rid):
             'order':order
     }
     return render(request,'order.html',context)
+
+
+def checkout(request,rid):
+    order=Order.objects.filter(orderedBy=Customer.objects.get(email=request.user.email),status='Waiting',r_id=rid).first()
+    if order is not None:
+        order.status="Placed"
+        order.save()
+    return redirect('order_status')
+
+@login_required
+def order_status(request):
+    order_p=Order.objects.filter(orderedBy=Customer.objects.get(email=request.user.email),status='Placed').first()
+    prev_order=Order.objects.filter(~Q(status='Placed'),orderedBy=Customer.objects.get(email=request.user.email))
+    context={
+            "now_order":order_p,
+            "previous_orders":prev_order,
+    }
+    return render(request, "orderstatus.html",context)

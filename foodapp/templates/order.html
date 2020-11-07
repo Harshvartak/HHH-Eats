@@ -30,7 +30,7 @@
                       {% endfor %}
                         <hr>
                         <div class="total">Grand Total<span class="total-cost">{{ order.total_amount }}</span></div>
-                        <button type="button" class="btn btn-danger btn-block">Place Order!</button>
+                        <a href="{% url "checkout" rid=rest_id %}"><button type="button" class="btn btn-danger btn-block">Place Order!</button></a>
                     </div>
                 </div>
             </div>
