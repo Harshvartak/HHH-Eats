@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
+
+body {
+  background-color: #f3f3f3;
+  color: #33373d;
+  font-family: 'Montserrat', sans-serif;
+  overflow-x: hidden;
+}
+
+.navbar-brand {
+  color: #ce3232;
+  font-size: 24px;
+  font-weight: bold;
+  margin-left: 120px;
+  margin-top: 30px;
+  padding-right: 100%;
+  padding-bottom: 20px;
+}
+
+a:hover,
+a:active,
+a:focus {
+  color: #ce3232;
+  outline: none;
+}
+
+.restaurant {
+  font-size: 24px;
+  color: #ce3232;
+  font-weight: bold;
+}
+
+.card-header {
+  background-color: white;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.food-item {
+  margin-top: 15px;
+  font-size: 18px;
+}
+
+.food-cost {
+  float: right;
+  margin-right: 200px;
+}
+
+.total {
+  font-size: 18px;
+}
+
+.total-cost {
+  float: right;
+  margin-right: 200px;
+  font-weight: bold;
+}
+
+.status {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+i {
+  color: #ce3232;
+  margin-left: 5px;
+}
+
+.timestamp {
+  float: right;
+  margin-right: 200px;
+}
+
+.previousorders {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.orderdetails {
+  margin: 10px;
+}
