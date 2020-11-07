@@ -155,7 +155,6 @@ class Menu(models.Model):
 
 
 class orderItem(models.Model):
-
     orderedBy = models.ForeignKey(Customer, on_delete=models.CASCADE)
     item_id = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
     # ord_id = models.ForeignKey(Order, on_delete=models.CASCADE)

@@ -22,12 +22,14 @@
                 <div class="card" id="usercart">
                     <div class="card-header" >Your Cart<i class="fa fa-shopping-cart" aria-hidden="true"></i></div>
                     <div class="card-body">
-                        <div class="food-item">Fried Mac n' Cheese<span class="food-cost">$22&nbsp;&nbsp;&nbsp;<i class="fa fa-plus-square-o" aria-hidden="true"></i>&nbsp;0&nbsp;<i class="fa fa-minus-square-o" aria-hidden="true"></i></span></div>
-                        <div class="food-item">Fried Mac n' Cheese<span class="food-cost">$22&nbsp;&nbsp;&nbsp;<i class="fa fa-plus-square-o" aria-hidden="true"></i>&nbsp;0&nbsp;<i class="fa fa-minus-square-o" aria-hidden="true"></i></span></div>
-                        <div class="food-item">Fried Mac n' Cheese<span class="food-cost">$22&nbsp;&nbsp;&nbsp;<i class="fa fa-plus-square-o" aria-hidden="true"></i>&nbsp;0&nbsp;<i class="fa fa-minus-square-o" aria-hidden="true"></i></span></div>
-                        <div class="food-item">Fried Mac n' Cheese<span class="food-cost">$22&nbsp;&nbsp;&nbsp;<i class="fa fa-plus-square-o" aria-hidden="true"></i>&nbsp;0&nbsp;<i class="fa fa-minus-square-o" aria-hidden="true"></i></span></div>
+                      {%for item in order.items.all %}
+                        <div class="food-item">{{ item.item_id.fname }}<span class="food-cost">{{ item.item_id.price }}&nbsp;&nbsp;&nbsp;<a href="{%url "NewOrderCart" pk=item.item_id.id rid=order.r_id.id %}"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a>&nbsp;{{ item.quantity }}&nbsp;<a href="{% url "RemoveOrderCart" pk=item.item_id.id rid=order.r_id.id %}"><i class="fa fa-minus-square-o" aria-hidden="true"></i></a></span></div>
+                        {% comment %} <div class="food-item">Fried Mac n' Cheese<span class="food-cost">$22&nbsp;&nbsp;&nbsp;<i class="fa fa-plus-square-o" aria-hidden="true"></i>&nbsp;0&nbsp;<i class="fa fa-minus-square-o" aria-hidden="true"></i></span></div> {% endcomment %}
+                        {% comment %} <div class="food-item">Fried Mac n' Cheese<span class="food-cost">$22&nbsp;&nbsp;&nbsp;<i class="fa fa-plus-square-o" aria-hidden="true"></i>&nbsp;0&nbsp;<i class="fa fa-minus-square-o" aria-hidden="true"></i></span></div> {% endcomment %}
+                        {% comment %} <div class="food-item">Fried Mac n' Cheese<span class="food-cost">$22&nbsp;&nbsp;&nbsp;<i class="fa fa-plus-square-o" aria-hidden="true"></i>&nbsp;0&nbsp;<i class="fa fa-minus-square-o" aria-hidden="true"></i></span></div> {% endcomment %}
+                      {% endfor %}
                         <hr>
-                        <div class="total">Grand Total<span class="total-cost">$88</span></div>
+                        <div class="total">Grand Total<span class="total-cost">{{ order.total_amount }}</span></div>
                         <button type="button" class="btn btn-danger btn-block">Place Order!</button>
                     </div>
                 </div>

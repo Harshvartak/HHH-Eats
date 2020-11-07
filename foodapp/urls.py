@@ -8,15 +8,22 @@ from . import views
 # app_name="foodapp"
 urlpatterns = [
     path("login/",views.login_view,name="login"),
-    path("register/",views.register,name="register"),
+
     path("customer/register",views.customerRegister,name="customer_register"),
     path("customer/home",views.index,name="customer_home"),
+
     path("owner/register",views.RestaurantRegister,name="restaurant_register"),
     path("owner/home",views.rest_index,name="restaurant_home"),
+
     path("showMenu/",views.listRestaurant,name="ListRestaurant"),
     path("menu/<int:pk>",views.restuarantMenu,name="restuarantMenu"),
+
     path("neworder/<int:pk>/<int:rid>",views.new_order,name="NewOrder"),
-    path("test/",views.test,name="test")
+    path("removeorder/<int:pk>/<int:rid>",views.remove_order,name="remove order"),
+
+    path("neworder_cart/<int:pk>/<int:rid>",views.new_order_cart,name="NewOrderCart"),
+    path("removeorder_cart/<int:pk>/<int:rid>",views.remove_order_cart,name="RemoveOrderCart"),
+    path("customer/cart/<int:rid>",views.view_cart,name="cart"),
 ]
 '''
     path(

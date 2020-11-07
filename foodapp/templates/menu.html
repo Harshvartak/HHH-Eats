@@ -74,17 +74,17 @@
                     <div>Address:{{rest.location}}</div>
                </div>
           </div><hr>
-          <div class="fooditems">Menu <button type="button" class="btn btn-danger">View Cart<i class="fa fa-shopping-cart" aria-hidden="true"></i>{{request.user|cart}}</button>  </div>
-          
+          <div class="fooditems">Menu <a href="{% url "cart" r_id %}"><button type="button" class="btn btn-danger">View Cart<i class="fa fa-shopping-cart" aria-hidden="true"></i>{{request.user|cart}}</button></a>  </div>
+
           {% for i in menu.r_menu.all %}
           <form method="POST">
                {% csrf_token %}
-          <div class="food-item">{{i.fname}}<span class="food-cost">Rs.{{i.price}}&nbsp;&nbsp;&nbsp; <a href="{% url 'NewOrder' pk=i.id rid=rest.id %}"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a>&nbsp;0&nbsp;<i class="fa fa-minus-square-o" aria-hidden="true"></i></span>
-              
+          <div class="food-item">{{i.fname}}<span class="food-cost">Rs.{{i.price}}&nbsp;&nbsp;&nbsp; <a href="{% url 'NewOrder' pk=i.id rid=rest.id %}"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a>&nbsp;&nbsp;<a href="{% url 'remove order' pk=i.id rid=rest.id %}"><i class="fa fa-minus-square-o" aria-hidden="true"></i></a></span>
+
           <div class="food-desc">{{i.description}}</div>
           </form>
           {% endfor %}
-     
+
           <!-- <div class="food-item">Fried Mac n' Cheese<span class="food-cost">$22&nbsp;&nbsp;&nbsp;<i class="fa fa-plus-square-o" aria-hidden="true"></i>&nbsp;0&nbsp;<i class="fa fa-minus-square-o" aria-hidden="true"></i></span> -->
           <!-- <div class="food-desc">Served with BBQ ranch</div> -->
 

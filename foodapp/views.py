@@ -139,7 +139,8 @@ def restuarantMenu(request, pk=None):
     items = []
     context={
         'rest':rest,
-        'menu':menu
+        'menu':menu,
+        'r_id':pk
     }
     return render(request, "menu.html", context)
 
@@ -367,8 +368,6 @@ def listRestaurant(request):
 def new_order(request,pk,rid):
     item=get_object_or_404(MenuItem,pk=pk)
     order=Order.objects.filter(orderedBy=Customer.objects.get(email=request.user.email),status='Waiting').first()
-
-
     print("----------",order,item)
     if order is not None:
         print("The value",order.items.filter(item_id__id=pk))
@@ -392,6 +391,66 @@ def new_order(request,pk,rid):
         order.save()
 
     return redirect('restuarantMenu',pk=rid)
+
+
+def remove_order(request,pk,rid):
+    item=get_object_or_404(MenuItem,pk=pk)
+    order=Order.objects.filter(orderedBy=Customer.objects.get(email=request.user.email),status='Waiting').first()
+    print("----------",order,item)
+    if order is not None:
+        print("The value",order.items.filter(item_id__id=pk))
+        if order.items.filter(item_id__pk=pk).exists() :
+
+            print("Yes existssssssssss")
+            fooditem=order.items.filter(item_id__pk=pk).first()
+            if fooditem.quantity>0:
+                fooditem.quantity-=1
+                fooditem.save()
+    return redirect('restuarantMenu',pk=rid)
+
+
+def new_order_cart(request,pk,rid):
+    item=get_object_or_404(MenuItem,pk=pk)
+    order=Order.objects.filter(orderedBy=Customer.objects.get(email=request.user.email),status='Waiting').first()
+    print("----------",order,item)
+    if order is not None:
+        print("The value",order.items.filter(item_id__id=pk))
+        if order.items.filter(item_id__pk=pk).exists():
+            print("Yes existssssssssss")
+            fooditem=order.items.filter(item_id__pk=pk).first()
+            fooditem.quantity+=1
+            fooditem.save()
+        else:
+            new,created=orderItem.objects.get_or_create(item_id=item,orderedBy=Customer.objects.get(email=request.user.email))
+            new.quantity=1
+            order.items.add(new)
+            new.save()
+
+    else:
+        order=Order.objects.create(orderedBy=Customer.objects.get(email=request.user.email),r_id=Restaurant.objects.get(id=rid))
+        new,created=orderItem.objects.get_or_create(item_id=item,orderedBy=Customer.objects.get(email=request.user.email))
+        new.quantity=1
+        new.save()
+        order.items.add(new)
+        order.save()
+
+    return redirect('cart',rid=rid)
+
+
+def remove_order_cart(request,pk,rid):
+    item=get_object_or_404(MenuItem,pk=pk)
+    order=Order.objects.filter(orderedBy=Customer.objects.get(email=request.user.email),status='Waiting').first()
+    print("----------",order,item)
+    if order is not None:
+        print("The value",order.items.filter(item_id__id=pk))
+        if order.items.filter(item_id__pk=pk).exists() :
+
+            print("Yes existssssssssss")
+            fooditem=order.items.filter(item_id__pk=pk).first()
+            if fooditem.quantity>0:
+                fooditem.quantity-=1
+                fooditem.save()
+    return redirect('cart',rid=rid)
 
 
 
@@ -420,3 +479,21 @@ def login_view(request):
         else:
             form = AccountAuthenticationForm()
     return render(request, "login.html", {"form":form})
+
+
+
+
+def view_cart(request,rid):
+    order=Order.objects.filter(orderedBy=Customer.objects.get(email=request.user.email),status='Waiting',r_id=rid).first()
+    if order is not None:
+        cost=0
+        for item in order.items.all():
+            cost+=item.quantity*item.item_id.price
+        order.total_amount=cost
+        order.save()
+
+    context={
+            'rest_id':rid,
+            'order':order
+    }
+    return render(request,'order.html',context)

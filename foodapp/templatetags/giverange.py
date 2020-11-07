@@ -19,17 +19,3 @@ def cart_count(user):
                 sum+=i.quantity
             # return lis[0].items.count()
             return sum
-
-
-
-def cart_count_red(user):
-    print("jhkdsfhkjsdhfkjdshfkjdfjhk")
-    if user.is_authenticated:
-        lis=Order.objects.filter(orderedBy=Customer.objects.get(email=user.email),status='Waiting')
-        sum=0
-        if lis.exists():
-            print(lis[0].items.all())
-            for i in lis[0].items.all():
-                sum-=i.quantity 
-            # return lis[0].items.count()
-            return sum
