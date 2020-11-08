@@ -30,7 +30,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="card-title"><h2>SignUp</h2></div>
-                <form method="POST" enctype= "multipart/form-data">
+                <form name="Registration" method="POST" onsubmit="return formvalidate()" enctype= "multipart/form-data">
                   {% csrf_token %}
                   <!-- {{form}} -->
                     <div class="row">
@@ -97,5 +97,6 @@
             </div>
           </div>
         </div>
+        <script src="../static/js/signup.js"></script>
     </body>
 </html>
