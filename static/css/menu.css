@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
+
+body {
+  background-color: #ffffff;
+  color: black;
+  font-family: 'Montserrat', sans-serif;
+  overflow-x: hidden;
+}
+
+.navbar-brand {
+  color: #ce3232;
+  font-size: 24px;
+  font-weight: bold;
+  margin-left: 120px;
+  margin-top: 30px;
+  padding-right: 100%;
+  padding-bottom: 20px;
+}
+
+a:hover,
+a:active,
+a:focus {
+  color: #ce3232;
+  outline: none;
+}
+
+#menu {
+  padding: 0;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  height: 600px;
+}
+
+#menu .col-md-3 {
+  margin: 0;
+  padding: 0;
+}
+
+#menu .col-md-6 {
+  margin: 0;
+  padding: 0;
+}
+
+.menu-thumb img {
+  width: 100%;
+  transition: 0.5s;
+}
+
+.menu-thumb:hover img {
+  transform: scale(1.15);
+}
+
+#menu .menu-thumb {
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  /* width: 102%; */
+}
+
+.resname {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.fa-star {
+  color: lightgrey;
+}
+
+.checked {
+  color: orange;
+}
+
+.rating {
+  margin-left: auto;
+  font-size: 18px;
+}
+
+.review {
+  font-size: 12px;
+  text-align: center;
+}
+
+.resinfo {
+  font-size: 18px;
+  color: gray;
+}
+
+hr {
+  border: 0.5px dashed #ce3232;
+}
+
+.fooditems {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.food-item {
+  margin-top: 15px;
+  font-size: 18px;
+}
+
+.food-cost {
+  float: right;
+  margin-right: 400px;
+}
+
+.food-desc {
+  font-size: 15px;
+  width: 550px;
+  color: gray;
+}
+
+.fa-plus-square-o {
+  color: #ce3232;
+}
+
+.fa-minus-square-o {
+  color: #ce3232;
+}
+
+.btn-danger {
+  float: right;
+  margin-right: 400px;
+}

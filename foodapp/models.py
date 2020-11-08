@@ -153,7 +153,6 @@ class Menu(models.Model):
         return self.r_id.rname + " - "+"Menu"
 
 
-
 class orderItem(models.Model):
     orderedBy = models.ForeignKey(Customer, on_delete=models.CASCADE)
     item_id = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
@@ -196,9 +195,3 @@ class Order(models.Model):
 
     def __str__(self):
         return str(self.id) + " " + self.status
-
-
-
-
-# class test(models.Model):
-    # val=models.ManyToManyField(Item)
