@@ -16,6 +16,7 @@
 
 </head>
 <body>
+<<<<<<< HEAD
   <nav class="navbar navbar-expand-sm bg-danger navbar-dark">
     <a class="navbar-brand" href="#">HHHEATS</a>
     <ul class="navbar-nav">
@@ -28,6 +29,10 @@
     </ul>
   </nav>
   <div class="container-fluid">
+=======
+  <a href="{% url "ListRestaurant" %}" class="navbar-brand">HHHEATS</a>
+  <div class="container">
+>>>>>>> upstream/master
     <div class="row">
       <div class="col-lg-3">
         <div class="card" id="filters">
@@ -75,7 +80,7 @@
                     <!-- <span class="fa fa-star checked"></span> -->
                     <!-- <span class="fa fa-star"></span> -->
                     <!-- <span class="fa fa-star"></span> -->
-                    <span class="rating">{{i.rating}}(100 Reviews)</span>
+                    <span class="rating">{{ i.rating }}(100 Reviews)</span>
                   </div>
                     <div class="card-body">
                       <div>Speciality:<span class="value">{{i.speciality}}</span></div>
@@ -100,7 +105,7 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        {{i.phone}}
+                        {{ i.phone }}
                       </div>
                     </div>
                   </div>
@@ -114,6 +119,6 @@
               </div>
           </div>
         </div>
-  
+
 </body>
 </html>

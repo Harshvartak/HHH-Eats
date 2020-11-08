@@ -41,7 +41,7 @@ def customerRegister(request):
             Customer.is_owner=False
             Customer.is_agree=True
             Customer.save()
-            return redirect('customer_home')
+            return redirect('login')
         else:
             print(form.errors)
     else:
@@ -102,10 +102,6 @@ def index(request):
     return render(request, "customer_home.html")
 
 
-def orderplaced(request):
-    return render(request, "")
-
-
 def restuarant(request):
     r_object = Restaurant.objects.all()
     query = request.GET.get("q")
@@ -133,7 +129,6 @@ def updateCustomer(request, id):
 
 
 def restuarantMenu(request, pk=None):
-
     menu = Menu.objects.get(r_id=pk)
     rest = Restaurant.objects.get(id=pk)
     items = []
@@ -188,6 +183,10 @@ def checkout(request):
 
 
 ########################################################### Restaurant side stuff ###################################################
+
+def home(request):
+    return render(request, "temp.html")
+
 
 # creating restuarant account
 def rest_index(request):
@@ -470,10 +469,7 @@ def login_view(request):
             if user.i_agree and user.is_active:
                 if user.is_customer:
                     login(request, user)
-                    return redirect("customer_home")
-                elif user.is_owner:
-                    login(request,user)
-                    return redirect('restaurant_home')
+                    return redirect("ListRestaurant")
             else:
                 return redirect("login")
         else:
