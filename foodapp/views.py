@@ -26,9 +26,9 @@ def register(request):
     return render(request,"signup.html",{'form':form})
 
 
-def Logout(request):
+def logout_view(request):
     logout(request)
-    return redirect("login")
+    return redirect("home")
 
 def customerRegister(request):
     if request.method=='POST':
@@ -135,7 +135,8 @@ def restuarantMenu(request, pk=None):
     context={
         'rest':rest,
         'menu':menu,
-        'r_id':pk
+        'r_id':pk,
+        'rest':rest,
     }
     return render(request, "menu.html", context)
 

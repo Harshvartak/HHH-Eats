@@ -22,12 +22,12 @@
                 <div class="card" id="currentorder">
                     <div class="card-header" >Ongoing Order</div>
                     <div class="card-body">
-                        <div class="restaurant">Restaurant Name</div>
+                        <div class="restaurant">{{ order.r_id.rname }}</div>
                         {%for item in now_order.items.all %}
-                          <div class="food-item">{{ item.item_id.fname }}<span class="food-cost">{{ item.item_id.price }}&nbsp;&nbsp;&nbsp;&nbsp;{{ item.quantity }}&nbsp;</span></div>
+                          <div class="food-item">{{ item.item_id.fname }}<span class="food-cost">₹ {{ item.item_id.price }}&nbsp;&nbsp;&nbsp;&nbsp;{{ item.quantity }}&nbsp;</span></div>
                         {% endfor %}
                         <hr>
-                        <div class="total">Grand Total<span class="total-cost">{{ now_order.total_amount }}</span></div>
+                        <div class="total">Grand Total<span class="total-cost">₹{{ now_order.total_amount }}</span></div>
                         <div class="status">Status</div>
                         <div class="status_time">
                             <div>{{ now_order.status }}<i class="fa fa-thumbs-up" aria-hidden="true"></i><span class="timestamp">{{ now_order.timestamp }}</span></div>
@@ -46,9 +46,11 @@
                     {% for order in previous_orders %}
                     <div>{{ order.timestamp }}</div>
                     <div>{{ order.r_id.rname }}</div>
-                    <div>{{ order.total_amount }}</div>
+                    <div>₹{{ order.total_amount }}</div>
                     <div>{{ order.status }}</div>
+                    <hr>
                     {% endfor %}
+
                     </div>
                 </div>
             </div>
